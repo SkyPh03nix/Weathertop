@@ -1,5 +1,7 @@
 const express = require("express");
 const dotenv = require("dotenv");
+const handlebars = require("express-handlebars");
+const routes = require("./routes")
 
 /* Reading global variables from config file */
 dotenv.config();
@@ -11,17 +13,17 @@ const PORT = process.env.PORT;
  *
 */
 
-app = express();
+const app = express();
 
 //turn on serving static files (required for delivering css to client)
 app.use(express.static("public"));
-//configure template engine
-app.set("views", "views");
-app.set("view engine", "pug");
 
-app.get('/', (req, res) => {
-    res.send("Hello weathertop!");
-});
+//configure template engine
+app.engine('.hbs', handlebars.engine({extname: '.hbs'}));
+app.set("views", "./views");
+app.set("view engine", ".hbs");
+
+app.use("/", routes);
 
 app.listen(PORT, function() {
   console.log(`Weathertop running and listening on port ${PORT}`);
