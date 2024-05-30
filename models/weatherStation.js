@@ -1,8 +1,7 @@
-const pool = require('../db');
 //TODO later db connection
-const getWeatherStationById = async (id) => {
+const getWeatherStations = async () => {
 //Static Data for now
-  const stations = [
+  return [
     {
       id: 1,
       location: "Rettenbach",
@@ -28,9 +27,6 @@ const getWeatherStationById = async (id) => {
       pressure: 1000
     }
   ];
-  return stations.find(station => station.id === id);
 };
 
-module.exports = {
-  getWeatherStationById
-};
+module.exports = getWeatherStations;
