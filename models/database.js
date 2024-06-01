@@ -9,12 +9,12 @@ if (!connectionString) {
 
 let dbClient = null;
 
-const dataStore = {
+const database = {
     getClient() {
         if (dbClient) {
             return dbClient;
         } else {
-            dbClient = new pg.Client(dbConfig);
+            dbClient = new pg.Client(connectionString);
             dbClient.connect();
             return dbClient;
         }

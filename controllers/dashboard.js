@@ -1,8 +1,8 @@
-const getWeatherStations = require("../models/weatherStation");
+const getStations = require("../models/weatherStation");
 
 const dashboard = {
     async index(request, response) {
-        const weatherStations = await getWeatherStations();
+        const weatherStations = await getStations.getAllStations();
             const viewData = {
             title: "Dashboard",
             weatherStations: weatherStations
