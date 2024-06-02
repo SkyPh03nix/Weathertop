@@ -1,12 +1,16 @@
 const station = require('../models/weatherStation');
 
 const weatherStation = {
-  async index(req, res) {
-      // Wetterstationen aus dem Modell abrufen
-      const weatherStations = await station.getAllStations(); //TODO later use getUserStations()
-      
+  async index(request, response) {
+      // Wetterstationen aus dem Modell abruf
+      const stationID = request.params.id
+      const weatherStation = await station.getStation(stationID);
+      const viewData = {
+        title: weatherStation.name,
+        weatherStation: weatherStation
+      }; 
       // Die Wetterstationsdaten an die View übergeben und rendern
-      res.render("dashboard", { weatherStations });
+      response.render("weatherstation", viewData);
   }
 };
 
