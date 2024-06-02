@@ -1,11 +1,10 @@
 const express = require("express");
+const handlebars = require("express-handlebars");
 const dotenv = require("dotenv");
 dotenv.config();
-const handlebars = require("express-handlebars");
 const routes = require("./routes")
-
 /* Reading global variables from config file */
-dotenv.config();
+
 const PORT = process.env.PORT;
 
 /*

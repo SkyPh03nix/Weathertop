@@ -8,9 +8,8 @@ const weatherStationModel = {
       SELECT * FROM weatherstation ws JOIN station_values sv ON ws.id = sv.weatherstation_id
       JOIN (
         SELECT weatherstation_id, MAX(data_time) AS max_time FROM station_values GROUP BY weatherstation_id
-      )
-      AS max_times ON sv.weatherstation_id = max_times.weatherstation_id AND sv.data_time = max_times.max_time;
-    `;
+      ) AS max_times 
+      ON sv.weatherstation_id = max_times.weatherstation_id AND sv.data_time = max_times.max_time;`;
     try{
       const result = await db.getClient().query(query);
       return result.rows;
