@@ -1,5 +1,4 @@
 const database = require("./database.js");
-const db = require("./database.js");
 const stationValues = require("./stationValues")
 
 const weatherStation = { 
@@ -17,21 +16,32 @@ const weatherStation = {
   async getAllStationsWithLatestReading() {
     // TODO loop instead of query more readable, maybe slower??
     try{
-      const stations = await this.getAllStations();
-      console.log(stations);
+      const stations = await this.getAllStations(); 
       const stationsWithLatestReading = await Promise.all(stations.map(async(station) => {
         const latestReading = await stationValues.getLatestReading(station.id);
-        
         return {
           ...station,
           latestReading
         };
-        
       }));
-    console.log(stationsWithLatestReading);
+    
     return stationsWithLatestReading;
     } catch(error) {
       console.error("Error fetching all stations and their latest Readings:", error);
+      throw error;
+    }
+  },
+
+  async getStationWithAllReadings(stationId) {
+    try {
+      const station = await this.getStation(stationId); // Annahme: Funktion zum Abrufen einer einzelnen Wetterstation
+      const allReadings = await stationValues.getAllReadings(stationId); // Annahme: Funktion zum Abrufen aller Messungen für eine Wetterstation
+      return {
+        ...station,
+        allReadings
+      };
+    } catch (error) {
+      console.error("Error fetching station and all readings:", error);
       throw error;
     }
   },
@@ -40,7 +50,7 @@ const weatherStation = {
     const query = 'SELECT * FROM weatherstation WHERE id = $1';
     const values = [id];
     try {
-      const result = await db.getClient().query(query, values);
+      const result = await database.getClient().query(query, values);
       return result.rows[0];
     } catch (error) {
       console.error("Error fetching the weather station with ID ${id}:", error);
@@ -55,7 +65,7 @@ const weatherStation = {
     const query = "DELETE FROM weatherstation WHERE id = $1";
     const values = [id];
     try{
-      await db.getClient().query(query, values);
+      await database.getClient().query(query, values);
     } catch {
       console.error("Unable to remove weather station with ID ${id}:", error);
       throw error;
@@ -67,7 +77,7 @@ const weatherStation = {
     const query = "INSERT INTO weatherstation (location, user_id) VALUES ($1, $2)";
     const values = [station.location, station.userId];
     try{
-      await db.getClient().query(query, values);
+      await database.getClient().query(query, values);
     } catch {
       console.error("Unable to add weather station:", error);
       throw error;
