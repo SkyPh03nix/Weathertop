@@ -1,20 +1,37 @@
+const database = require("./database.js");
 const db = require("./database.js");
+const stationValues = require("./stationValues")
 
-const weatherStationModel = { 
+const weatherStation = { 
   async getAllStations() {
-    // function only used for debugging and until login and registration is implemented
-    //const query =  "SELECT * FROM weatherstation JOIN station_values ON weatherstation.id = station_values.weatherstation_id";
-    const query = `
-      SELECT * FROM weatherstation ws JOIN station_values sv ON ws.id = sv.weatherstation_id
-      JOIN (
-        SELECT weatherstation_id, MAX(data_time) AS max_time FROM station_values GROUP BY weatherstation_id
-      ) AS max_times 
-      ON sv.weatherstation_id = max_times.weatherstation_id AND sv.data_time = max_times.max_time;`;
-    try{
-      const result = await db.getClient().query(query);
+    const query = "SELECT * FROM weatherstation;";
+    try {
+      const result = await database.getClient().query(query);
       return result.rows;
+    } catch (error) {
+      console.error('Error fetching all stations:', error);
+      throw error;
+    }
+  },
+
+  async getAllStationsWithLatestReading() {
+    // TODO loop instead of query more readable, maybe slower??
+    try{
+      const stations = await this.getAllStations();
+      console.log(stations);
+      const stationsWithLatestReading = await Promise.all(stations.map(async(station) => {
+        const latestReading = await stationValues.getLatestReading(station.id);
+        
+        return {
+          ...station,
+          latestReading
+        };
+        
+      }));
+    console.log(stationsWithLatestReading);
+    return stationsWithLatestReading;
     } catch(error) {
-      console.error("Error fetching all stations:", error);
+      console.error("Error fetching all stations and their latest Readings:", error);
       throw error;
     }
   },
@@ -34,6 +51,7 @@ const weatherStationModel = {
   //TODO getUserStations(email)
 
   async removeStation(id) {
+    //TODO
     const query = "DELETE FROM weatherstation WHERE id = $1";
     const values = [id];
     try{
@@ -45,6 +63,7 @@ const weatherStationModel = {
   },
 
   async addStation(station) {
+    //TODO
     const query = "INSERT INTO weatherstation (location, user_id) VALUES ($1, $2)";
     const values = [station.location, station.userId];
     try{
@@ -56,4 +75,4 @@ const weatherStationModel = {
   }
 
 };
-module.exports = weatherStationModel;
+module.exports = weatherStation;
