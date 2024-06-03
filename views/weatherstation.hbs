@@ -1,5 +1,30 @@
 {{> navbar}}
 
 <div class="container">
-  {{> liststations }}
+  <div class="row border">
+    {{> liststations }} //FIXME
+  </div>
+
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Time</th>
+        <th>Weather</th>
+        <th>Temperature</th>
+        <th>Wind</th>
+        <th>Air Pressure</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each stationValues.allReadings}}
+        <tr>
+          <td>{{ data_time }}</td>
+          <td>{{ weather_code }}</td>
+          <td>{{ temperature }}</td>
+          <td>{{ wind_speed }}</td>
+          <td>{{ air_pressure }}</td>
+        </tr>
+      {{/each}}
+    </tbody>
+  </table>
 </div>
