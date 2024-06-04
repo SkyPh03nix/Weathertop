@@ -1,19 +1,23 @@
 const station = require('../models/weatherStation');
+const values = require('../models/stationValues');
 
 const weatherStation = {
   async index(request, response) {
       // Wetterstationen aus dem Modell abruf
       const stationId = request.params.id
-      const stationValues = await station.getStationWithAllReadings(stationId); 
-      //TODO latest reading uebergeben ohne redundanz in objektuebergabe? 
+      const stationValues = await station.getStationWithAllReadings(stationId);
+      const latestReading = await values.getLatestReading(stationId);
+      //TODO latest reading und name uebergeben ohne redundanz in objektuebergabe? 
       
       const viewData = {
+        //TODO rework object, redundant and badly structured
         title: stationValues.name,
-        stationValues: stationValues, 
+        name: stationValues.name,
+        stationValues: stationValues,
+        latestReading: latestReading
       }; 
-      // Die Wetterstationsdaten an die View übergeben und rendern 
       response.render("weatherstation", viewData);
-      console.log(stationValues);
+      console.log(viewData);
   }
   //TODO error handling
 };

@@ -34,8 +34,8 @@ const weatherStation = {
 
   async getStationWithAllReadings(stationId) {
     try {
-      const station = await this.getStation(stationId); // Annahme: Funktion zum Abrufen einer einzelnen Wetterstation
-      const allReadings = await stationValues.getAllReadings(stationId); // Annahme: Funktion zum Abrufen aller Messungen für eine Wetterstation
+      const station = await this.getStation(stationId); 
+      const allReadings = await stationValues.getAllReadings(stationId); 
       return {
         ...station,
         allReadings
