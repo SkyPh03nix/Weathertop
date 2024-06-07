@@ -29,7 +29,21 @@ const stationValues = {
       console.error(`Error fetching all readings for weather station with ID ${stationId}:`, error);
       throw error;
     }
-  }
+  },
+
+  async addReading(reading) {
+        const client = db.getClient();
+        const query = `INSERT INTO station_values (weatherstation_id, weather_code, temperature, wind_speed, wind_direction, air_pressure, data_time)
+            VALUES ($1, $2, $3, $4, $5, $6, CURRENT_TIMESTAMP)`;
+        const values = [reading.weatherStationId, reading.weatherCode, reading.temperature, reading.windSpeed, reading.windDirection, reading.airPressure];
+
+        try {
+            await client.query(query, values);
+        } catch (error) {
+            console.error('Error adding reading to the database:', error);
+            throw error;
+        }
+    }
 };
 
 module.exports = stationValues;

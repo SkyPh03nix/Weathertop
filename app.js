@@ -1,5 +1,6 @@
 const express = require("express");
 const handlebars = require("express-handlebars");
+const bodyParser = require("body-parser");
 const dotenv = require("dotenv");
 dotenv.config();
 const routes = require("./routes")
@@ -17,6 +18,7 @@ const app = express();
 
 //turn on serving static files (required for delivering css to client)
 app.use(express.static("public"));
+app.use(bodyParser.urlencoded({ extended: false }));
 
 //configure template engine
 app.engine('.hbs', handlebars.engine({extname: '.hbs'}));

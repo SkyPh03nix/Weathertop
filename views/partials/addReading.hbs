@@ -1,0 +1,29 @@
+<div class="container-fluid">
+  <form action="/stations/{{stationValues.id}}/readings" method="POST">
+    <div class="row">
+      <div class="mb-3 col-lg-2 col-md-4 col-sm-6">
+        <label for="weather_code" class="form-label">Weather Code</label>
+        <input type="number" class="form-control" id="weather_code" name="weather_code" min="0" max="999" required>
+      </div>
+      <div class="mb-3 col-lg-2 col-md-4 col-sm-6">
+        <label for="temperature" class="form-label">Temperature (°C)</label>
+        <input type="number" step="0.1" class="form-control" id="temperature" name="temperature" min="-50" max="50" required>
+      </div>
+      <div class="mb-3 col-lg-2 col-md-4 col-sm-6">
+        <label for="wind_speed" class="form-label">Wind Speed (km/h)</label>
+        <input type="number" step="0.1" class="form-control" id="wind_speed" name="wind_speed" min="0" max="150" required>
+      </div>
+      <div class="mb-3 col-lg-2 col-md-4 col-sm-6">
+        <label for="wind_direction" class="form-label">Wind Direction (°)</label>
+        <input type="number" class="form-control" id="wind_direction" name="wind_direction" min="0" max="360" required>
+      </div>
+      <div class="mb-3 col-lg-2 col-md-4 col-sm-6">
+        <label for="air_pressure" class="form-label">Air Pressure (hPa)</label>
+        <input type="number" class="form-control" id="air_pressure" name="air_pressure" min="900" max="1100" required>
+      </div>
+      <div class="mb-3 col-lg-2 col-md-4 col-sm-6 d-flex align-items-end">
+        <button type="submit" class="btn btn-primary w-100">Add Reading</button>
+      </div>
+    </div> 
+  </form>
+</div>
