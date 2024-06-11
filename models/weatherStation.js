@@ -74,8 +74,8 @@ const weatherStation = {
 
   async addStation(station) {
     //TODO
-    const query = "INSERT INTO weatherstation (location, user_id) VALUES ($1, $2)";
-    const values = [station.location, station.userId];
+    const query = "INSERT INTO weatherstation (location, latitude, longitude, user_id) VALUES ($1, $2)";
+    const values = [station.location, station.latitude, station.longitude]; //TODO current userid 
     try{
       await database.getClient().query(query, values);
     } catch {

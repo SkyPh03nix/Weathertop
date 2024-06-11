@@ -7,11 +7,10 @@ const weatherStation = {
       const stationId = request.params.id;
       const stationValues = await station.getStationWithAllReadings(stationId);
       const latestReading = await values.getLatestReading(stationId);
-      //TODO latest reading und name uebergeben ohne redundanz in objektuebergabe? 
       
       const viewData = {
         //TODO rework object, redundant and badly structured
-        title: stationValues.name,
+        title: stationValues.name, //TODO only used for tab name, use stationValues.name instead
         name: stationValues.name,
         stationValues: stationValues,
         latestReading: latestReading
@@ -22,19 +21,17 @@ const weatherStation = {
   //TODO error handling
 
   async addStation(request, response) {
-    const stationId = request.params.id;
     const newStation = {
       name: request.body.name,
       latitude: request.body.latitude,
       longitude: request.body.longitude,
       //TODO userID
     };
-    await weatherStation.addStation(stationId, newStation);
+    await weatherStation.addStation(newStation);
   },
 
   async addReading(request, response) {
-    const stationId = request.params.id;
-    console.log(stationId);
+    const stationId = request.params.id; 
     const newReading = {
       weatherStationId: stationId,
       weatherCode: request.body.weather_code,

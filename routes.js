@@ -9,7 +9,7 @@ router.get("/", home.index);
 router.get("/dashboard", dashboard.index);
 router.get("/weatherstation/:id", weatherstation.index);
 
-router.post('/weatherstation/:id/addStation', weatherstation.addStation);
+router.post('/stations', weatherstation.addStation);
 router.post('/stations/:id/readings', weatherstation.addReading);
 
 module.exports = router;
