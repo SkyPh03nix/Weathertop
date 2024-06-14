@@ -60,7 +60,7 @@ const weatherStation = {
 
   //TODO getUserStations(email)
 
-  async removeStation(id) {
+  async deleteStation(id) {
     //TODO
     const query = "DELETE FROM weatherstation WHERE id = $1";
     const values = [id];
@@ -72,10 +72,9 @@ const weatherStation = {
     }
   },
 
-  async addStation(station) {
-    //TODO
-    const query = "INSERT INTO weatherstation (location, latitude, longitude, user_id) VALUES ($1, $2)";
-    const values = [station.location, station.latitude, station.longitude]; //TODO current userid 
+  async addStation(station) { 
+    const query = "INSERT INTO weatherstation (name, latitude, longitude) VALUES ($1, $2, $3)";
+    const values = [station.name, station.latitude, station.longitude]; //TODO current userid 
     try{
       await database.getClient().query(query, values);
     } catch {
@@ -83,6 +82,6 @@ const weatherStation = {
       throw error;
     }
   }
-
 };
+
 module.exports = weatherStation;

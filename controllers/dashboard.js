@@ -15,18 +15,6 @@ const dashboard = {
         
         //TODO error handling
     },
-    
-    async addStation(request, response){
-        //TODO
-        response.redirect("/dashboard");
-        //TODO error handling
-    },
-
-    async deleteStation(request, response){
-        //TODO
-        response.redirect("/dashboard");
-        //TODO error handling
-    }
 }
 
 module.exports = dashboard;
