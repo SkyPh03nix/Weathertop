@@ -4,15 +4,25 @@ const router = express.Router();
 const home = require("./controllers/home.js");
 const dashboard = require("./controllers/dashboard.js");
 const weatherstation = require("./controllers/weatherstation.js");
+const user = require("./controllers/user.js");
+
+const auth = require("./utils/auth.js");
 
 router.get("/", home.index);
-router.get("/dashboard", dashboard.index); 
-router.get("/weatherstation/:id", weatherstation.index); 
 
-router.post('/stations/add', weatherstation.addStation); 
-router.get("/weatherstation/:id/deletestation", weatherstation.deleteStation); 
+router.get("/login", user.login);
+router.get("/logout", user.logout);
+router.get("/register", user.signup);
+router.post("/register", user.register)
+router.post("/authenticate", user.authenticate);
 
-router.post('/stations/:id/readings', weatherstation.addReading); 
-router.get('/weatherstation/:id/deletereading/:readingId', weatherstation.deleteReading);
+router.get("/dashboard", auth.protected, dashboard.index); 
+router.get("/weatherstation/:id", auth.protected, weatherstation.index); 
+
+router.post('/stations/add', auth.protected, weatherstation.addStation); 
+router.get("/weatherstation/:id/deletestation", auth.protected, weatherstation.deleteStation); 
+
+router.post('/stations/:id/readings', auth.protected, weatherstation.addReading); 
+router.get('/weatherstation/:id/deletereading/:readingId', auth.protected, weatherstation.deleteReading);
 
 module.exports = router;

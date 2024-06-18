@@ -1,4 +1,5 @@
 const express = require("express");
+const session = require("express-session");
 const handlebars = require("express-handlebars");
 const bodyParser = require("body-parser");
 const dotenv = require("dotenv");
@@ -15,6 +16,14 @@ const PORT = process.env.PORT;
 */
 
 const app = express();
+app.use(session({
+    secret: "weathertop",
+    cookie: {
+        maxAge: 3600000
+    },
+    resave: false,
+    saveUninitialized: false
+}));
 
 //turn on serving static files (required for delivering css to client)
 app.use(express.static("public"));
