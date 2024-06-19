@@ -1,9 +1,11 @@
-const getStations = require("../models/weatherStation");
+const station = require("../models/weatherStation");
+const user = require("./user");
 
 const dashboard = {
     async index(request, response) {
         try{
-            const weatherStations = await getStations.getAllStationsWithLatestReading();
+            const userId = await user.getCurrentUser(request);
+            const weatherStations = await station.getUserStationsWithLatestReading(userId);
             const viewData = {
                 title: "Dashboard",
                 weatherStations: weatherStations
@@ -12,8 +14,6 @@ const dashboard = {
         } catch (error) {
             console.error("Unable to fetch dashboard data: ", error);
         }
-        
-        //TODO error handling
     },
 }
 

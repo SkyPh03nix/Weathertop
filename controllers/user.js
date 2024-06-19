@@ -9,6 +9,7 @@ const user = {
     },
 
     logout(request, response) {
+        console.log("user.logout: session: ", request.session);
         request.session.destroy();
         response.redirect("/");
     },
@@ -21,7 +22,8 @@ const user = {
     },
 
     async getCurrentUser(request, response) {
-        return await users.getUserById(request.session.body);
+        const user = await users.getUserById(request.session.user);
+        return user.id;
     }, 
 
     async register(request, response) {

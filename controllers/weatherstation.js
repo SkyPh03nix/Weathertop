@@ -23,11 +23,12 @@ const weatherStation = {
   //TODO error handling
 
   async addStation(request, response) {
+    console.log("addStation(request, response): user: ", request.session.user);
     const newStation = { 
       name: request.body.name,
       latitude: request.body.latitude,
       longitude: request.body.longitude,
-      //TODO userID
+      userId: request.session.user,
     }; 
     try {
       await station.addStation(newStation);
@@ -68,10 +69,6 @@ const weatherStation = {
   async deleteReading(request, response) {
     const stationId = request.params.id;
     const readingId = request.params.readingId;
-    
-    console.log(`/////////////Params: ${request.params.readingId}///////////////`)
-    console.log(`/////////////${readingId}///////////////`)
-
     try {
       await stationValues.deleteReading(readingId);
       response.redirect(`/weatherstation/${stationId}`);

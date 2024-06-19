@@ -1,9 +1,12 @@
+const user = require("./user");
+
 const home = {
-    index(req, res) {
+    index(request, response) {
         const viewData = {
-            title: "Weathertop"
+            title: "Weathertop",
+            user: request.session.user
         };
-        res.render("index", viewData)
+        response.render("index", viewData)
     }
 };
 
