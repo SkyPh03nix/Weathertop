@@ -8,11 +8,11 @@ const user = require("./controllers/user.js");
 
 const auth = require("./utils/auth.js");
 
-router.get("/", home.index);
+router.get("/", auth.guest, home.index);
 
-router.get("/login", user.login);
+router.get("/login", auth.guest, user.login);
 router.get("/logout", user.logout);
-router.get("/register", user.signup);
+router.get("/register", auth.guest, user.signup);
 router.post("/register", user.register)
 router.post("/authenticate", user.authenticate);
 

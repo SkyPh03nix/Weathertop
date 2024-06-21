@@ -5,20 +5,23 @@ const stationValues = require('../models/stationValues');
 
 const weatherStation = {
   async index(request, response) {
-      // Wetterstationen aus dem Modell abruf
+      // Wetterstationen aus dem Modell abrufen
       const stationId = request.params.id;
       const stationValues = await station.getStationWithAllReadings(stationId);
       const latestReading = await values.getLatestReading(stationId);
-      
+      console.log("weatherStation.index(req,res): stationValues: ", stationValues);
       const viewData = {
         //TODO rework object, redundant and badly structured
-        title: stationValues.name, //TODO only used for tab name, use stationValues.name instead
-        name: stationValues.name,
+        title: stationValues.name,
+        name: stationValues.name, //needed in liststations partial //TODO can i cange it to qualified name for both usecases?
+        longitude: stationValues.longitude,
+        latitude: stationValues.latitude,
         stationValues: stationValues,
         latestReading: latestReading
       }; 
       response.render("weatherstation", viewData);
-      console.log(viewData);
+      console.log("---------------------------------------------------");
+      console.log("weatherStation(indes(req,res): viewData: ",viewData);
   },
   //TODO error handling
 
