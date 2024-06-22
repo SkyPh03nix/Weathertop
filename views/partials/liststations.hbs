@@ -2,9 +2,9 @@
   <div class="col">
     <div class="card text-white bg-dark my-3" style="height: 150px; display: flex; flex-direction: column;">
       <div class="card-body">
-        <h5 class="card-title" style="line-height: 2; font-weight: bold;">{{name}}</h5>
-        <p class="card-text" style="line-height: 0.5;">Lat: {{latitude}}</p>
-        <p class="card-text" style="line-height: 0.5;">Lon: {{longitude}}</p>
+        <h5 class="card-title" style="line-height: 2; font-weight: bold;">{{stationValues.name}}</h5>
+        <p class="card-text" style="line-height: 0.5;">Lat: {{stationValues.latitude}}</p>
+        <p class="card-text" style="line-height: 0.5;">Lon: {{stationValues.longitude}}</p>
       </div>
     </div>
   </div>
@@ -12,7 +12,7 @@
     <div class="card text-white bg-dark my-3" style="height: 150px; display: flex; flex-direction: column;">
       <div class="card-body">
         <h5 class="card-title" style="line-height: 2; font-weight: bold;">Wettercode</h5>
-        <p class="card-text">{{latestReading.weather_code}}</p>
+        <p class="card-text">{{stationValues.latestReading.weather_code}}</p>
       </div>
     </div>
   </div>
@@ -20,7 +20,7 @@
     <div class="card text-white bg-dark my-3" style="height: 150px; display: flex; flex-direction: column;">
       <div class="card-body">
         <h5 class="card-title" style="line-height: 2; font-weight: bold;">Temperatur</h5>
-        <p class="card-text">{{latestReading.temperature}}</p>
+        <p class="card-text">{{stationValues.latestReading.temperature}}</p>
       </div>
     </div>
   </div>
@@ -28,7 +28,7 @@
     <div class="card text-white bg-dark my-3" style="height: 150px; display: flex; flex-direction: column;">
       <div class="card-body">
         <h5 class="card-title" style="line-height: 2; font-weight: bold;">Wind</h5>
-        <p class="card-text">{{latestReading.wind_speed}}</p>
+        <p class="card-text">{{stationValues.latestReading.wind_speed}}</p>
       </div>
     </div>
   </div>
@@ -36,7 +36,7 @@
     <div class="card text-white bg-dark my-3" style="height: 150px; display: flex; flex-direction: column;">
       <div class="card-body">
         <h5 class="card-title" style="line-height: 2; font-weight: bold;">Luftdruck</h5>
-        <p class="card-text">{{latestReading.air_pressure}}</p>
+        <p class="card-text">{{stationValues.latestReading.air_pressure}}</p>
       </div>
     </div>
   </div>

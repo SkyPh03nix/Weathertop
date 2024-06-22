@@ -5,25 +5,17 @@ const stationValues = require('../models/stationValues');
 
 const weatherStation = {
   async index(request, response) {
-      // Wetterstationen aus dem Modell abrufen
       const stationId = request.params.id;
       const stationValues = await station.getStationWithAllReadings(stationId);
-      const latestReading = await values.getLatestReading(stationId);
-      console.log("weatherStation.index(req,res): stationValues: ", stationValues);
       const viewData = {
-        //TODO rework object, redundant and badly structured
         title: stationValues.name,
-        name: stationValues.name, //needed in liststations partial //TODO can i cange it to qualified name for both usecases?
-        longitude: stationValues.longitude,
-        latitude: stationValues.latitude,
-        stationValues: stationValues,
-        latestReading: latestReading
+        stationValues: {
+          ...stationValues,
+          latestReading: stationValues.allReadings[0]
+        }
       }; 
       response.render("weatherstation", viewData);
-      console.log("---------------------------------------------------");
-      console.log("weatherStation(indes(req,res): viewData: ",viewData);
   },
-  //TODO error handling
 
   async addStation(request, response) {
     console.log("addStation(request, response): user: ", request.session.user);

@@ -26,14 +26,16 @@ const weatherStation = {
 },
 
   async getUserStationsWithLatestReading(userId) {
-    // TODO loop instead of query more readable, maybe slower??
+    // loop instead of query more readable, maybe slower??
     try{
       const stations = await this.getStationsByUserId(userId); 
       const stationsWithLatestReading = await Promise.all(stations.map(async(station) => {
         const latestReading = await stationValues.getLatestReading(station.id);
         return {
-          ...station,
-          latestReading
+          stationValues: {
+            ...station,
+            latestReading
+          }
         };
       }));
     
@@ -45,11 +47,16 @@ const weatherStation = {
   },
 
   async getStationWithAllReadings(stationId) {
+
     try {
       const station = await this.getStation(stationId); 
       const allReadings = await stationValues.getAllReadings(stationId); 
       return {
-        ...station,
+        id: station.id,
+        name: station.name,
+        latitude: station.latitude,
+        longitude: station.longitude,
+        user_id: station.user_id,
         allReadings
       };
     } catch (error) {
