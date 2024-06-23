@@ -3,8 +3,7 @@ const db = require('./database.js');
 const stationValues = {
   async getLatestReading(stationId) {
     const query = `
-      SELECT weather_code, temperature, wind_speed, air_pressure, data_time FROM station_values
-        WHERE weatherstation_id = ${stationId} ORDER BY data_time DESC LIMIT 1;
+      SELECT * FROM station_values WHERE weatherstation_id = ${stationId} ORDER BY data_time DESC LIMIT 1;
     `;
 
     try {

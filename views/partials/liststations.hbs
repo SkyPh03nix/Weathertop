@@ -12,15 +12,17 @@
     <div class="card text-white bg-dark my-3" style="height: 150px; display: flex; flex-direction: column;">
       <div class="card-body">
         <h5 class="card-title" style="line-height: 2; font-weight: bold;">Wettercode</h5>
-        <p class="card-text">{{stationValues.latestReading.weather_code}}</p>
-      </div>
+        <p class="card-text" style="line-height: 0.5">{{stationValues.latestReading.condition}}</p>
+        <i class="{{stationValues.latestReading.iconFilename}} icon-right-top text-white"></i>
+        </div>
     </div>
   </div>
   <div class="col">
     <div class="card text-white bg-dark my-3" style="height: 150px; display: flex; flex-direction: column;">
       <div class="card-body">
-        <h5 class="card-title" style="line-height: 2; font-weight: bold;">Temperatur</h5>
-        <p class="card-text">{{stationValues.latestReading.temperature}}</p>
+        <h5 class="card-title" style="line-height: 2; font-weight: bold;">Temperature</h5>
+        <p class="card-text style="line-height: 0.5"">{{stationValues.latestReading.temperature}}</p>
+        <i class="bi bi-thermometer-half icon-right-top text-white"></i>
       </div>
     </div>
   </div>
@@ -28,7 +30,9 @@
     <div class="card text-white bg-dark my-3" style="height: 150px; display: flex; flex-direction: column;">
       <div class="card-body">
         <h5 class="card-title" style="line-height: 2; font-weight: bold;">Wind</h5>
-        <p class="card-text">{{stationValues.latestReading.wind_speed}}</p>
+        <p class="card-text" style="line-height: 0.5">Speed: {{stationValues.latestReading.wind_speed}}</p>
+        <p class="card-text" style="line-height: 0.5">Direction: {{stationValues.latestReading.windDirection}}</p>
+        <i class="bi bi-wind icon-right-top text-white"></i>
       </div>
     </div>
   </div>
@@ -36,7 +40,8 @@
     <div class="card text-white bg-dark my-3" style="height: 150px; display: flex; flex-direction: column;">
       <div class="card-body">
         <h5 class="card-title" style="line-height: 2; font-weight: bold;">Luftdruck</h5>
-        <p class="card-text">{{stationValues.latestReading.air_pressure}}</p>
+        <p class="card-text" style="line-height: 0.5">{{stationValues.latestReading.air_pressure}}</p>
+        <i class="bi bi-speedometer icon-right-top text-white"></i>
       </div>
     </div>
   </div>

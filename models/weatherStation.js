@@ -1,5 +1,6 @@
 const db = require("./database.js");
 const stationValues = require("./stationValues")
+const mapping = require("../utils/mapping.js")
 
 const weatherStation = { 
   async getAllStations() {
@@ -25,16 +26,21 @@ const weatherStation = {
     }
 },
 
+  //Function to get all Stations with latest reading // TODO ???? (and mappings) ???? for dashboard view
   async getUserStationsWithLatestReading(userId) {
     // loop instead of query more readable, maybe slower??
     try{
       const stations = await this.getStationsByUserId(userId); 
       const stationsWithLatestReading = await Promise.all(stations.map(async(station) => {
         const latestReading = await stationValues.getLatestReading(station.id);
+        const weatherInfo = mapping.getWeatherInfo(latestReading.weather_code, latestReading.wind_direction);
         return {
           stationValues: {
             ...station,
-            latestReading
+            latestReading: {
+              ...latestReading,
+              ...weatherInfo
+            }
           }
         };
       }));
