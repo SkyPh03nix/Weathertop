@@ -40,7 +40,6 @@ const user = {
             let dbRes = await db.getClient().query(query, values);
             if (dbRes.rows[0] !== undefined) {
                 return {
-                    //TODO do i really need first and last name here?
                     id: dbRes.rows[0].email,
                     first_name: dbRes.rows[0].first_name,
                     last_name: dbRes.rows[0].last_name

@@ -15,6 +15,16 @@ const stationValues = {
     }
   },
 
+  async get2LatestReadings(allReadings) {
+    try {
+      const latestTwoReadings = allReadings.slice(0, 2);
+      return latestTwoReadings;
+    } catch (error) {
+      console.error('Error getting latest two readings:', error);
+      throw error;
+    }
+  },
+
   async getAllReadings(stationId) {
     const query = `
       SELECT * FROM station_values

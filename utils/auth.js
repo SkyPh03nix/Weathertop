@@ -1,6 +1,6 @@
 const auth = { 
     protected(request, response, next) { 
-        console.log("auth.protected(): user: ",request.session.user); //TODO undefined
+        console.log("auth.protected(): user: ",request.session.user); 
         if (request.session.user) { 
             next(); 
         } else { 

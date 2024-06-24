@@ -6,7 +6,7 @@ const weatherCodeMap = {
     Atmosphere: { condition: "Atmosphere", iconFilename: "bi bi-cloud-fog2" },
     Clear: { condition: "Clear", iconFilename: "bi bi-brightness-high" },
     Clouds: { condition: "Clouds", iconFilename: "bi bi-clouds" },
-    Unknown: { condition: "Unknown", iconFilename: "bi bi-question-square" }
+    Unknown: { condition: "-", iconFilename: "bi bi-question-square" }
 };
   
 const getWeatherInfo = (code, direction) => {
@@ -28,7 +28,6 @@ const getWeatherInfo = (code, direction) => {
     } else {
       weatherInfo = weatherCodeMap.Unknown;
     }
-    console.log("getWeatherInfo: wind_direction: ", direction);
   const windDirection = getWindDirection(direction);
   return { ...weatherInfo, windDirection };
 };
@@ -53,7 +52,7 @@ const getWindDirection = (degrees) => {
   } else if (degrees >= 337.5 && degrees <= 360) {
     return "North";
   } else {
-    return "Error, invalid number in wind direction";
+    return "-";
   }
 };
   
