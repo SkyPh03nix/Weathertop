@@ -13,18 +13,20 @@
         <th>Temperature</th>
         <th>Wind</th>
         <th>Air Pressure</th>
-        <th>Actions</th> 
+        <th></th> 
       </tr>
     </thead>
     <tbody>
       {{#each stationValues.allReadings}}
         <tr>
-          <td>{{ data_time }}</td>
-          <td>{{ weather_code }}</td>
-          <td>{{ temperature }}</td>
-          <td>{{ wind_speed }}</td>
-          <td>{{ air_pressure }}</td>
+          {{#if data_time}} <td> {{data_time}} </td> {{else}} <td>/</td> {{/if}}
+          {{#if weather_code}} <td> {{weather_code}} </td> {{else}} <td>/</td> {{/if}}
+          {{#if temperature}} <td> {{temperature}} </td> {{else}} <td>/</td> {{/if}}
+          {{#if wind_speed}} <td> {{wind_speed}} </td> {{else}} <td>/</td> {{/if}}
+          {{#if air_pressure}} <td> {{air_pressure}} </td> {{else}} <td>/</td> {{/if}}
           
+          
+
           <td>
             <a href="/weatherstation/{{../stationValues.id}}/deletereading/{{this.id}}" class="btn btn-danger mb-2" role="button">
               <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-trash" viewBox="0 0 16 16">

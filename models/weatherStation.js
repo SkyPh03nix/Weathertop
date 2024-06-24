@@ -1,6 +1,7 @@
 const db = require("./database.js");
-const stationValues = require("./stationValues")
-const mapping = require("../utils/mapping.js")
+const stationValues = require("./stationValues");
+const mapping = require("../utils/mapping.js");
+const compare = require("../utils/compare.js");
 
 const weatherStation = { 
   async getAllStations() {
@@ -26,25 +27,39 @@ const weatherStation = {
     }
 },
 
-  //Function to get all Stations with latest reading // TODO ???? (and mappings) ???? for dashboard view
   async getUserStationsWithLatestReading(userId) {
-    // loop instead of query more readable, maybe slower??
     try{
-      const stations = await this.getStationsByUserId(userId); 
+      const stations = await this.getStationsByUserId(userId);
       const stationsWithLatestReading = await Promise.all(stations.map(async(station) => {
-        const latestReading = await stationValues.getLatestReading(station.id);
-        const weatherInfo = mapping.getWeatherInfo(latestReading.weather_code, latestReading.wind_direction);
+        const allReadings = await stationValues.getAllReadings(station.id);
+        const latestReadings = await stationValues.get2LatestReadings(allReadings);
+        const minMaxValues = await compare.getMinMaxValues(allReadings);
+        const trends = await compare.getTrend(latestReadings);
+        
+        const latestReadingWithTrends = {
+          ...latestReadings[0],
+          trends
+        };
+
+        let weatherInfo = null;
+        if (latestReadings.length != 0) {
+          weatherInfo = mapping.getWeatherInfo(latestReadings[0].weather_code, latestReadings[0].wind_direction);
+        } else {
+          weatherInfo = mapping.getWeatherInfo(0, -1);
+        }
+        
         return {
           stationValues: {
             ...station,
+            minMaxValues,
             latestReading: {
-              ...latestReading,
+              ...latestReadingWithTrends,
               ...weatherInfo
             }
           }
         };
       }));
-    
+
     return stationsWithLatestReading;
     } catch(error) {
       console.error("Error fetching all stations and their latest Readings:", error);
@@ -53,17 +68,33 @@ const weatherStation = {
   },
 
   async getStationWithAllReadings(stationId) {
-
     try {
       const station = await this.getStation(stationId); 
       const allReadings = await stationValues.getAllReadings(stationId); 
+      const latestReadings = await stationValues.get2LatestReadings(allReadings);
+      const trends = compare.getTrend(latestReadings);
+      const minMaxValues = await compare.getMinMaxValues(allReadings);
+    
+      let weatherInfo = null;
+      if (latestReadings.length != 0) {
+        weatherInfo = mapping.getWeatherInfo(latestReadings[0].weather_code, latestReadings[0].wind_direction);
+      } else {
+        weatherInfo = mapping.getWeatherInfo(0, -1);
+      }
+
       return {
         id: station.id,
         name: station.name,
         latitude: station.latitude,
         longitude: station.longitude,
         user_id: station.user_id,
-        allReadings
+        allReadings,
+        minMaxValues,
+        latestReading: {
+          ...latestReadings[0],
+          trends,
+          ...weatherInfo
+        },
       };
     } catch (error) {
       console.error("Error fetching station and all readings:", error);
@@ -83,10 +114,7 @@ const weatherStation = {
     }
   },
 
-  //TODO getUserStations(email)
-
   async deleteStation(id) {
-    //TODO
     const query = "DELETE FROM weatherstation WHERE id = $1";
     const values = [id];
     try{

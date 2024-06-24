@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col">
-    <div class="card text-white bg-dark my-3" style="height: 150px; display: flex; flex-direction: column;">
+    <div class="card text-white bg-dark my-3" style="height: 160px; display: flex; flex-direction: column;">
       <div class="card-body">
         <h5 class="card-title" style="line-height: 2; font-weight: bold;">{{stationValues.name}}</h5>
         <p class="card-text" style="line-height: 0.5;">Lat: {{stationValues.latitude}}</p>
@@ -9,39 +9,48 @@
     </div>
   </div>
   <div class="col">
-    <div class="card text-white bg-dark my-3" style="height: 150px; display: flex; flex-direction: column;">
+    <div class="card text-white bg-dark my-3" style="height: 160px; display: flex; flex-direction: column;">
       <div class="card-body">
-        <h5 class="card-title" style="line-height: 2; font-weight: bold;">Wettercode</h5>
+        <h5 class="card-title" style="line-height: 2; font-weight: bold;">Weather</h5>
         <p class="card-text" style="line-height: 0.5">{{stationValues.latestReading.condition}}</p>
         <i class="{{stationValues.latestReading.iconFilename}} icon-right-top text-white"></i>
         </div>
     </div>
   </div>
   <div class="col">
-    <div class="card text-white bg-dark my-3" style="height: 150px; display: flex; flex-direction: column;">
+    <div class="card text-white bg-dark my-3" style="height: 160px; display: flex; flex-direction: column;">
       <div class="card-body">
         <h5 class="card-title" style="line-height: 2; font-weight: bold;">Temperature</h5>
-        <p class="card-text style="line-height: 0.5"">{{stationValues.latestReading.temperature}}</p>
+        <p class="card-text" style="line-height: 0.5">{{#if stationValues.latestReading.temperature}}{{stationValues.latestReading.temperature}}{{else}}-{{/if}} °C</p>
+        <p class="card-text" style="line-height: 0.5">Min: {{stationValues.minMaxValues.tempMin}} °C</p>
+        <p class="card-text" style="line-height: 0.5">Max: {{stationValues.minMaxValues.tempMax}} °C</p>
         <i class="bi bi-thermometer-half icon-right-top text-white"></i>
+        <i class="{{stationValues.latestReading.trends.temperature}} icon-right-beneath-top text-white"></i>
       </div>
     </div>
   </div>
   <div class="col">
-    <div class="card text-white bg-dark my-3" style="height: 150px; display: flex; flex-direction: column;">
+    <div class="card text-white bg-dark my-3" style="height: 160px; display: flex; flex-direction: column;">
       <div class="card-body">
         <h5 class="card-title" style="line-height: 2; font-weight: bold;">Wind</h5>
-        <p class="card-text" style="line-height: 0.5">Speed: {{stationValues.latestReading.wind_speed}}</p>
+        <p class="card-text" style="line-height: 0.5">Speed: {{#if stationValues.latestReading.wind_speed}}{{stationValues.latestReading.wind_speed}}{{else}}-{{/if}} km/h</p>
         <p class="card-text" style="line-height: 0.5">Direction: {{stationValues.latestReading.windDirection}}</p>
+        <p class="card-text" style="line-height: 0.5">Min: {{stationValues.minMaxValues.windMin}} km/h</p>
+        <p class="card-text" style="line-height: 0.5">Max: {{stationValues.minMaxValues.windMax}} km/h</p>
         <i class="bi bi-wind icon-right-top text-white"></i>
+        <i class="{{stationValues.latestReading.trends.wind_speed}} icon-right-beneath-top text-white"></i>
       </div>
     </div>
   </div>
   <div class="col">
-    <div class="card text-white bg-dark my-3" style="height: 150px; display: flex; flex-direction: column;">
+    <div class="card text-white bg-dark my-3" style="height: 160px; display: flex; flex-direction: column;">
       <div class="card-body">
-        <h5 class="card-title" style="line-height: 2; font-weight: bold;">Luftdruck</h5>
-        <p class="card-text" style="line-height: 0.5">{{stationValues.latestReading.air_pressure}}</p>
+        <h5 class="card-title" style="line-height: 2; font-weight: bold;">Air Pressure</h5>
+        <p class="card-text" style="line-height: 0.5">{{#if stationValues.latestReading.air_pressure}}{{stationValues.latestReading.air_pressure}}{{else}}-{{/if}} hpa</p>
+        <p class="card-text" style="line-height: 0.5">Min: {{stationValues.minMaxValues.airMin}} hpa</p>
+        <p class="card-text" style="line-height: 0.5">Max: {{stationValues.minMaxValues.airMax}} hpa</p>
         <i class="bi bi-speedometer icon-right-top text-white"></i>
+        <i class="{{stationValues.latestReading.trends.air_pressure}} icon-right-beneath-top text-white"></i>
       </div>
     </div>
   </div>

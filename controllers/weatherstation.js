@@ -1,36 +1,14 @@
 const station = require('../models/weatherStation');
 const values = require('../models/stationValues');
-const { deleteStation } = require('./dashboard');
-const stationValues = require('../models/stationValues');
-const mapping = require("../utils/mapping.js");
 
 const weatherStation = {
   async index(request, response) {
-    //TODO object construction in model
       const stationId = request.params.id;
       const stationValues = await station.getStationWithAllReadings(stationId);
-      const weatherInfo = mapping.getWeatherInfo(stationValues.allReadings[0].weather_code, stationValues.allReadings[0].wind_direction);
-
-      const latestReading = {
-        ...stationValues.allReadings[0],
-        ...weatherInfo
-      };
-
-      const allReadingsWithWindDirections = stationValues.allReadings.map(reading => {
-        const windDirection = mapping.getWindDirection(reading.wind_direction);
-        return {
-          ...reading,
-          windDirection: windDirection
-        };
-      });
 
       const viewData = {
         title: stationValues.name,
-        stationValues: {
-          ...stationValues,
-          allReadings: allReadingsWithWindDirections,
-          latestReading: latestReading
-        }
+        stationValues: stationValues
       }; 
       response.render("weatherstation", viewData);
   },
@@ -83,7 +61,7 @@ const weatherStation = {
     const stationId = request.params.id;
     const readingId = request.params.readingId;
     try {
-      await stationValues.deleteReading(readingId);
+      await values.deleteReading(readingId);
       response.redirect(`/weatherstation/${stationId}`);
     } catch (error) {
       console.error("Error deleting reading:", error);

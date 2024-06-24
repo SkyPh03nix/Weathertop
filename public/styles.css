@@ -4,3 +4,10 @@
     right: 20px;
     font-size: 1.8rem;
   }
+
+  .icon-right-beneath-top {
+    position: absolute;
+    top: 40px;
+    right: 20px;
+    font-size: 1.8rem;
+  }
