@@ -13,7 +13,7 @@
       <div class="card-body">
         <h5 class="card-title" style="line-height: 2; font-weight: bold;">Weather</h5>
         <p class="card-text" style="line-height: 0.5">{{stationValues.latestReading.condition}}</p>
-        <i class="{{stationValues.latestReading.iconFilename}} icon-right-top text-white"></i>
+        <i class="{{stationValues.latestReading.iconFilename}} icon-right-top"></i>
         </div>
     </div>
   </div>
@@ -24,8 +24,8 @@
         <p class="card-text" style="line-height: 0.5">{{#if stationValues.latestReading.temperature}}{{stationValues.latestReading.temperature}}{{else}}-{{/if}} °C</p>
         <p class="card-text" style="line-height: 0.5">Min: {{stationValues.minMaxValues.tempMin}} °C</p>
         <p class="card-text" style="line-height: 0.5">Max: {{stationValues.minMaxValues.tempMax}} °C</p>
-        <i class="bi bi-thermometer-half icon-right-top text-white"></i>
-        <i class="{{stationValues.latestReading.trends.temperature}} icon-right-beneath-top text-white"></i>
+        <i class="bi bi-thermometer-half icon-right-top"></i>
+        <i class="{{stationValues.latestReading.trends.temperature}} icon-right-beneath-top"></i>
       </div>
     </div>
   </div>
@@ -37,8 +37,8 @@
         <p class="card-text" style="line-height: 0.5">Direction: {{stationValues.latestReading.windDirection}}</p>
         <p class="card-text" style="line-height: 0.5">Min: {{stationValues.minMaxValues.windMin}} km/h</p>
         <p class="card-text" style="line-height: 0.5">Max: {{stationValues.minMaxValues.windMax}} km/h</p>
-        <i class="bi bi-wind icon-right-top text-white"></i>
-        <i class="{{stationValues.latestReading.trends.wind_speed}} icon-right-beneath-top text-white"></i>
+        <i class="bi bi-wind icon-right-top"></i>
+        <i class="{{stationValues.latestReading.trends.wind_speed}} icon-right-beneath-top"></i>
       </div>
     </div>
   </div>
@@ -49,8 +49,8 @@
         <p class="card-text" style="line-height: 0.5">{{#if stationValues.latestReading.air_pressure}}{{stationValues.latestReading.air_pressure}}{{else}}-{{/if}} hpa</p>
         <p class="card-text" style="line-height: 0.5">Min: {{stationValues.minMaxValues.airMin}} hpa</p>
         <p class="card-text" style="line-height: 0.5">Max: {{stationValues.minMaxValues.airMax}} hpa</p>
-        <i class="bi bi-speedometer icon-right-top text-white"></i>
-        <i class="{{stationValues.latestReading.trends.air_pressure}} icon-right-beneath-top text-white"></i>
+        <i class="bi bi-speedometer icon-right-top"></i>
+        <i class="{{stationValues.latestReading.trends.air_pressure}} icon-right-beneath-top"></i>
       </div>
     </div>
   </div>

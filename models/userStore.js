@@ -45,7 +45,7 @@ const user = {
                     last_name: dbRes.rows[0].last_name
                 };
             } else {
-                console.log("returning undefined in userStore.js"); //TODO fehlermeldung
+                console.log("returning undefined in userStore.js"); 
                 return null;
             }
         } catch(error) {

@@ -6,7 +6,7 @@ const weatherCodeMap = {
     Atmosphere: { condition: "Atmosphere", iconFilename: "bi bi-cloud-fog2" },
     Clear: { condition: "Clear", iconFilename: "bi bi-brightness-high" },
     Clouds: { condition: "Clouds", iconFilename: "bi bi-clouds" },
-    Unknown: { condition: "-", iconFilename: "bi bi-question-square" }
+    Unknown: { condition: "-", iconFilename: " " } //no icon for unknown weather
 };
   
 const getWeatherInfo = (code, direction) => {

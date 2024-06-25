@@ -9,7 +9,6 @@ const user = {
     },
 
     logout(request, response) {
-        console.log("user.logout: session: ", request.session);
         request.session.destroy();
         response.redirect("/");
     },
