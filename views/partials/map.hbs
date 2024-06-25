@@ -1,0 +1,18 @@
+<div id="map"></div>   
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+
+<script>
+    var map = L.map('map').setView([51.1657, 10.4515], 5);
+
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+    }).addTo(map);
+
+    {{#each this.weatherStations}}
+        var stationName = '{{stationValues.name}}';
+        var stationId = '{{stationValues.id}}';
+        var popupContent = `<a href="/weatherstation/${stationId}">${stationName}</a>`;
+        L.marker([{{stationValues.latitude}}, {{stationValues.longitude}}]).addTo(map).bindPopup(popupContent);
+    {{/each}}
+</script>

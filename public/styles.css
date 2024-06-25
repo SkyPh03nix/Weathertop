@@ -1,13 +1,26 @@
 .icon-right-top {
-    position: absolute;
-    top: 10px;
-    right: 20px;
-    font-size: 1.8rem;
-  }
+  position: absolute;
+  top: 10px;
+  right: 20px;
+  font-size: 1.8rem;
+  color: #93ceff;
+}
 
-  .icon-right-beneath-top {
-    position: absolute;
-    top: 40px;
-    right: 20px;
-    font-size: 1.8rem;
-  }
+.icon-right-beneath-top {
+  position: absolute;
+  top: 40px;
+  right: 20px;
+  font-size: 1.8rem;
+  color: #f1d6fc;
+}
+
+.content-padding {
+  padding-top: 56px; 
+  width: 100%;
+  left: 0;
+}
+
+#map {
+  height: 300px;
+  width: 100%;
+} 
