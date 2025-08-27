@@ -65,8 +65,8 @@ const user = {
                 response.redirect("/dashboard");
             } else {
                 console.log("Authentication failed: wrong email or password");
-                response.redirect("/login");
-            }
+                response.render("index", { title: "Login", error: "Falsche E-Mail oder Passwort" });
+        }
         } catch (err) {
             console.error("Error authenticating user:", err);
             response.status(500).send("Server error");

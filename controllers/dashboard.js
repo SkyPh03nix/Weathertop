@@ -4,7 +4,11 @@ const user = require("./user");
 const dashboard = {
     async index(request, response) {
         try{
-            const userId = await user.getCurrentUser(request);
+            const currentUser = await user.getCurrentUser(request);
+            if (!currentUser) {
+                return response.redirect("/login");
+            }
+            const userId = currentUser.id;
             const weatherStations = await station.getUserStationsWithLatestReading(userId);
             const viewData = {
                 title: "Dashboard",

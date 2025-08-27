@@ -8,11 +8,12 @@ const user = {
             db.get(query, [email], (err, row) => {
                 if (err) return reject(err);
                 if (row) {
-                    console.log(`Found user ${row.EMAIL}`);
+                    console.log(`Found user ${row.email}`);
                     resolve({
-                        id: row.EMAIL,
-                        first_name: row.FIRST_NAME,
-                        last_name: row.LAST_NAME
+                        id: row.email,           // korrekt aus row
+                        email: row.email,
+                        first_name: row.first_name,
+                        last_name: row.last_name
                     });
                 } else {
                     resolve(undefined);
@@ -53,9 +54,10 @@ const user = {
                 if (err) return reject(err);
                 if (row) {
                     resolve({
-                        id: row.EMAIL,
-                        first_name: row.FIRST_NAME,
-                        last_name: row.LAST_NAME
+                        id: row.email,
+                        email: row.email,
+                        first_name: row.first_name,
+                        last_name: row.last_name
                     });
                 } else {
                     console.log("returning undefined in userStore.js");

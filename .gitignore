@@ -2,3 +2,5 @@ node_modules/
 notes.txt
 *.pdf
 .env
+weathertop.sqlite
+*.sqlite
