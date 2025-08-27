@@ -1,57 +1,69 @@
-const db = require("./database")
+// models/userStore.js
+const db = require("./database");
 
 const user = {
-    async getUserById(id) {
-        const query = 'SELECT * FROM weathertop_users WHERE email = $1';
-        const values = [id];
-        try {
-            let dbRes = await db.getClient().query(query, values);
-            if (dbRes.rows[0] !== undefined) {
-                console.log(`Found user ${dbRes.rows[0].email}`);
-                return {
-                    id: dbRes.rows[0].email,
-                    firstName: dbRes.rows[0].first_name,
-                    lastName: dbRes.rows[0].last_name
-                };
-            } else {
-                return undefined;
-            }
-        } catch (error) {
-            logger.error("Error getting user", error);
-            return undefined;
-        }
+    async getUserById(email) {
+        return new Promise((resolve, reject) => {
+            const query = `SELECT * FROM weathertop_users WHERE EMAIL = ?`;
+            db.get(query, [email], (err, row) => {
+                if (err) return reject(err);
+                if (row) {
+                    console.log(`Found user ${row.EMAIL}`);
+                    resolve({
+                        id: row.EMAIL,
+                        first_name: row.FIRST_NAME,
+                        last_name: row.LAST_NAME
+                    });
+                } else {
+                    resolve(undefined);
+                }
+            });
+        });
     },
 
     async addUser(userData) {
-        const query = 'INSERT INTO weathertop_users (email, password, first_name, last_name) VALUES ($1, $2, $3, $4)';
-        const values = [userData.email, userData.password, userData.first_name, userData.last_name];
-        try {
-            await db.getClient().query(query, values);
-            console.log(`User ${userData.email} added successfully`);
-        } catch (error) {
-            console.log("Error adding user: ", error)
-        }
+        return new Promise((resolve, reject) => {
+            const query = `
+                INSERT INTO weathertop_users (EMAIL, PASSWORD, FIRST_NAME, LAST_NAME)
+                VALUES (?, ?, ?, ?)
+            `;
+            const values = [
+                userData.email,
+                userData.password,
+                userData.first_name,
+                userData.last_name
+            ];
+            db.run(query, values, function(err) {
+                if (err) {
+                    console.error("Error adding user: ", err);
+                    return reject(err);
+                }
+                console.log(`User ${userData.email} added successfully`);
+                resolve(this.lastID);
+            });
+        });
     },
 
     async authenticateUser(email, password) {
-        const query = 'SELECT * FROM weathertop_users WHERE email = $1 AND password = $2';
-        const values = [email, password];
-        try {
-            let dbRes = await db.getClient().query(query, values);
-            if (dbRes.rows[0] !== undefined) {
-                return {
-                    id: dbRes.rows[0].email,
-                    first_name: dbRes.rows[0].first_name,
-                    last_name: dbRes.rows[0].last_name
-                };
-            } else {
-                console.log("returning undefined in userStore.js"); 
-                return null;
-            }
-        } catch(error) {
-            console.log("Error in user authentification: ", error);
-        }
+        return new Promise((resolve, reject) => {
+            const query = `
+                SELECT * FROM weathertop_users WHERE EMAIL = ? AND PASSWORD = ?
+            `;
+            db.get(query, [email, password], (err, row) => {
+                if (err) return reject(err);
+                if (row) {
+                    resolve({
+                        id: row.EMAIL,
+                        first_name: row.FIRST_NAME,
+                        last_name: row.LAST_NAME
+                    });
+                } else {
+                    console.log("returning undefined in userStore.js");
+                    resolve(null);
+                }
+            });
+        });
     }
-}
+};
 
 module.exports = user;
